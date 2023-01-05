@@ -1,5 +1,0 @@
-map_server:
-  ros__parameters:
-    yaml_filename: "image_map.yaml"
-    topic_name: "map"
-    frame_id: "map"

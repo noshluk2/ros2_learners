@@ -18,3 +18,8 @@
     ros2 topic info <topic name>
     ```
 
+## Locations
+- For generic header files
+    ```
+    cd /opt/ros/humble/include/
+    ```
