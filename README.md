@@ -1,2 +1,7 @@
-# ros2_learners
-This repository is for ROS2 future developers . This will support everyone to become a good developer .
+# Repository for ROS2 Developers
+Multiple aspects of Robotics are practised in this repository , explained using ROS2.
+
+- Basic ROS2 interfacing
+
+**All base code inside this repository is also explained in youtube videos -> **[[Channel link]](https://www.youtube.com/channel/UC-QzGbqufzwncwPQlOJfUXw)**
+
