@@ -6,7 +6,7 @@ from launch_ros.actions import Node
 
 
 def generate_launch_description():
-    config_dir = os.path.join(get_package_share_directory('navigation_'),'config')
+    config_dir = os.path.join(get_package_share_directory('navigation_tb3'),'config')
 
     return LaunchDescription([
 
