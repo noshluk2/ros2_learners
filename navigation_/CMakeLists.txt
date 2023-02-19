@@ -17,7 +17,10 @@ install(TARGETS
   pub_occupancy_grid
   DESTINATION lib/${PROJECT_NAME})
 
-
+install( DIRECTORY launch/
+         DESTINATION share/${PROJECT_NAME}/launch)
+install( DIRECTORY config/
+         DESTINATION share/${PROJECT_NAME}/config)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
