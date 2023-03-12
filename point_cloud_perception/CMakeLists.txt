@@ -24,15 +24,23 @@ include_directories(
         ${OpenCV_INCLUDE_DIRS}
         include
 )
-add_executable(test_node src/test_node.cpp)
-target_link_libraries(test_node ${PCL_LIBRARIES})
+add_executable(voxeling src/voxelizing.cpp)
+target_link_libraries(voxeling ${PCL_LIBRARIES})
+
+add_executable(planner_seg src/planner_seg.cpp)
+target_link_libraries(planner_seg ${PCL_LIBRARIES})
+
+add_executable(clustering src/clustering.cpp)
+target_link_libraries(clustering ${PCL_LIBRARIES})
+
+
 # target_link_libraries
 
 
 
 
 install(TARGETS
-test_node
+voxeling planner_seg clustering
   DESTINATION lib/${PROJECT_NAME})
 
 install(DIRECTORY
