@@ -1,0 +1,217 @@
+<?xml version="1.0" ?>
+  <robot name="dolly">
+
+
+
+  <link name="base">
+    <visual>
+      <geometry>
+          <box size="0.75 0.4 0.1"/>
+      </geometry>
+      <material name="gray">
+        <color rgba=".2 .2 .2 1" />
+      </material>
+    </visual>
+
+    <inertial>
+        <mass value="1" />
+        <inertia ixx="0.01" ixy="0.0" ixz="0" iyy="0.01" iyz="0" izz="0.01" />
+    </inertial>
+
+    <collision>
+      <geometry>
+          <box size="0.75 0.4 0.1"/>
+      </geometry>
+    </collision>
+
+  </link>
+
+
+
+
+
+
+  <link name="wheel_right_link">
+    <inertial>
+            <mass value="2" />
+            <inertia ixx="0.01" ixy="0.0" ixz="0"
+            iyy="0.01" iyz="0" izz="0.01" />
+    </inertial>
+
+    <visual>
+      <geometry>
+          <cylinder radius="0.15" length="0.1"/>
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+
+    <collision>
+
+      <geometry>
+          <cylinder radius="0.15" length="0.1"/>
+      </geometry>
+      <contact_coefficients mu="1" kp="1e+13" kd="1.0"/>
+    </collision>
+  </link>
+
+  <joint name="wheel_right_joint" type="continuous">
+    <origin xyz="0.2 0.25 0.0" rpy="1.57 0.0 0.0"/>
+    <parent link="base"/>
+    <child link="wheel_right_link"/>
+    <axis xyz="0.0 0.0 1.0"/>
+  </joint>
+
+
+
+  <link name="wheel_left_link">
+    <inertial>
+            <mass value="2" />
+            <inertia ixx="0.01" ixy="0.0" ixz="0"
+            iyy="0.01" iyz="0" izz="0.01" />
+    </inertial>
+
+    <visual>
+
+      <geometry>
+          <cylinder radius="0.15" length="0.1"/>
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+
+    <collision>
+      <geometry>
+          <cylinder radius="0.15" length="0.1"/>
+      </geometry>
+      <contact_coefficients mu="1" kp="1e+13" kd="1.0"/>
+    </collision>
+  </link>
+
+  <joint name="wheel_left_joint" type="continuous">
+    <origin xyz="0.2 -0.25 0.0" rpy="1.57 0.0 0.0"/>
+    <parent link="base"/>
+    <child link="wheel_left_link"/>
+    <axis xyz="0.0 0.0 1.0"/>
+
+  </joint>
+
+
+
+  <link name="caster">
+    <inertial>
+            <mass value="1" />
+            <inertia ixx="0.01" ixy="0.0" ixz="0"
+            iyy="0.01" iyz="0" izz="0.01" />
+    </inertial>
+
+    <visual>
+
+      <geometry>
+        <sphere radius=".08" />
+      </geometry>
+      <material name="white" />
+    </visual>
+
+    <collision>
+      <origin/>
+      <geometry>
+        <sphere radius=".08" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="caster_joint" type="continuous">
+    <origin xyz="-0.3 0.0 -0.07" rpy="0.0 0.0 0.0"/>
+    <axis xyz="0 0 1" />
+    <parent link="base"/>
+    <child link="caster"/>
+  </joint>
+
+  <link name="camera">
+    <inertial>
+            <mass value="0.1" />
+            <inertia ixx="0.01" ixy="0.0" ixz="0"
+            iyy="0.01" iyz="0" izz="0.01" />
+    </inertial>
+
+    <visual>
+
+      <geometry>
+        <box size="0.1 0.1 0.05"/>
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+
+    <collision>
+      <geometry>
+          <box size="0.1 0.1 0.05"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="camera_joint" type="fixed">
+    <origin xyz="-0.35 0 0.01" rpy="0 0.0 3.14"/>
+    <parent link="base"/>
+    <child link="camera"/>
+    <axis xyz="0.0 0.0 1.0"/>
+
+  </joint>
+
+  <link name="lidar">
+    <inertial>
+            <mass value="0.5" />
+            <inertia ixx="0.01" ixy="0.0" ixz="0"
+            iyy="0.01" iyz="0" izz="0.01" />
+    </inertial>
+
+    <visual>
+
+      <geometry>
+        <cylinder radius="0.1" length="0.05"/>
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+
+    <collision>
+      <geometry>
+          <box size="0.1 0.1 0.1"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="lidar_joint" type="fixed">
+    <origin xyz="-0.285 0 0.075" rpy="0 0.0 1.57"/>
+    <parent link="base"/>
+    <child link="lidar"/>
+    <axis xyz="0.0 0.0 1.0"/>
+
+  </joint>
+
+
+  <gazebo>
+    <plugin filename="libgazebo_ros_diff_drive.so" name="gazebo_base_controller">
+      <odometry_frame>odom</odometry_frame>
+      <commandTopic>cmd_vel</commandTopic>
+      <publish_odom>true</publish_odom>
+      <publish_odom_tf>true</publish_odom_tf>
+      <update_rate>15.0</update_rate>
+
+      <left_joint>wheel_left_joint</left_joint>
+      <right_joint>wheel_right_joint</right_joint>
+
+      <wheel_separation>0.5</wheel_separation>
+      <wheel_diameter>0.3</wheel_diameter>
+      <max_wheel_acceleration>0.7</max_wheel_acceleration>
+      <max_wheel_torque>8</max_wheel_torque>
+      <robotBaseFrame>base</robotBaseFrame>
+    </plugin>
+  </gazebo>
+
+</robot>
