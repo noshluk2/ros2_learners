@@ -1,0 +1,324 @@
+<?xml version="1.0" ?>
+  <robot name="dolly">
+
+
+
+  <link name="base_footprint" />
+
+  <link name="base">
+    <visual>
+      <geometry>
+          <box size="0.75 0.4 0.1"/>
+      </geometry>
+      <material name="gray">
+        <color rgba=".2 .2 .2 1" />
+      </material>
+    </visual>
+  <inertial>
+            <mass value="1" />
+            <inertia ixx="0.01" ixy="0.0" ixz="0"
+            iyy="0.01" iyz="0" izz="0.01" />
+    </inertial>
+    <collision>
+      <geometry>
+          <box size="0.75 0.4 0.1"/>
+      </geometry>
+
+    </collision>
+  </link>
+
+  <joint name="base_joint" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base"/>
+    <origin rpy="0 0 0" xyz="0 0 0.135"/>
+  </joint>
+
+  <link name="wheel_right_link">
+    <inertial>
+            <mass value="2" />
+            <inertia ixx="0.01" ixy="0.0" ixz="0"
+            iyy="0.01" iyz="0" izz="0.01" />
+    </inertial>
+
+    <visual>
+
+      <geometry>
+          <cylinder radius="0.15" length="0.1"/>
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+
+    <collision>
+
+      <geometry>
+          <cylinder radius="0.15" length="0.1"/>
+      </geometry>
+      <contact_coefficients mu="1" kp="1e+13" kd="1.0"/>
+    </collision>
+  </link>
+
+  <joint name="wheel_right_joint" type="continuous">
+    <origin xyz="0.2 0.25 0.0" rpy="1.57 0.0 0.0"/>
+    <parent link="base"/>
+    <child link="wheel_right_link"/>
+    <axis xyz="0.0 0.0 1.0"/>
+  </joint>
+
+  <link name="wheel_left_link">
+    <inertial>
+            <mass value="2" />
+            <inertia ixx="0.01" ixy="0.0" ixz="0"
+            iyy="0.01" iyz="0" izz="0.01" />
+    </inertial>
+
+    <visual>
+
+      <geometry>
+          <cylinder radius="0.15" length="0.1"/>
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+
+    <collision>
+      <geometry>
+          <cylinder radius="0.15" length="0.1"/>
+      </geometry>
+      <contact_coefficients mu="1" kp="1e+13" kd="1.0"/>
+    </collision>
+  </link>
+
+  <joint name="wheel_left_joint" type="continuous">
+    <origin xyz="0.2 -0.25 0.0" rpy="1.57 0.0 0.0"/>
+    <parent link="base"/>
+    <child link="wheel_left_link"/>
+    <axis xyz="0.0 0.0 1.0"/>
+
+  </joint>
+
+
+
+  <link name="caster">
+    <inertial>
+            <mass value="1" />
+            <inertia ixx="0.01" ixy="0.0" ixz="0"
+            iyy="0.01" iyz="0" izz="0.01" />
+    </inertial>
+
+    <visual>
+
+      <geometry>
+        <sphere radius=".08" />
+      </geometry>
+      <material name="white" />
+    </visual>
+
+    <collision>
+      <origin/>
+      <geometry>
+        <sphere radius=".08" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="caster_joint" type="continuous">
+    <origin xyz="-0.3 0.0 -0.07" rpy="0.0 0.0 0.0"/>
+    <axis xyz="0 0 1" />
+    <parent link="base"/>
+    <child link="caster"/>
+  </joint>
+
+  <link name="camera">
+    <inertial>
+            <mass value="0.1" />
+            <inertia ixx="0.01" ixy="0.0" ixz="0"
+            iyy="0.01" iyz="0" izz="0.01" />
+    </inertial>
+
+    <visual>
+
+      <geometry>
+        <box size="0.1 0.1 0.05"/>
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+
+    <collision>
+      <geometry>
+          <box size="0.1 0.1 0.05"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="camera_joint" type="fixed">
+    <origin xyz="-0.35 0 0.01" rpy="0 0.0 3.14"/>
+    <parent link="base"/>
+    <child link="camera"/>
+    <axis xyz="0.0 0.0 1.0"/>
+
+  </joint>
+
+  <link name="lidar">
+    <inertial>
+            <mass value="0.5" />
+            <inertia ixx="0.01" ixy="0.0" ixz="0"
+            iyy="0.01" iyz="0" izz="0.01" />
+    </inertial>
+
+    <visual>
+
+      <geometry>
+        <cylinder radius="0.1" length="0.05"/>
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+
+    <collision>
+      <geometry>
+          <box size="0.1 0.1 0.1"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="lidar_joint" type="fixed">
+    <origin xyz="-0.285 0 0.075" rpy="0 0.0 1.57"/>
+    <parent link="base"/>
+    <child link="lidar"/>
+    <axis xyz="0.0 0.0 1.0"/>
+
+  </joint>
+
+<link name="imu_link">
+
+</link>
+<joint name="imu_joint" type="fixed">
+  <parent link="base"/>
+  <child link="imu_link"/>
+</joint>
+<!-- Gazebo colors to links as upper defined colors are only visible in RVIZ-->
+<gazebo reference="base">
+  <material>Gazebo/White</material>
+</gazebo>
+<gazebo reference="caster">
+  <material>Gazebo/Blue</material>
+</gazebo>
+
+<gazebo reference="wheel_right_link">
+  <material>Gazebo/Red</material>
+</gazebo>
+<gazebo reference="wheel_left_link">
+  <material>Gazebo/Red</material>
+</gazebo>
+<!-- DIFFENERNTIAL DRIVEEEEEEEEEEEEE -->
+
+  <gazebo>
+    <plugin filename="libgazebo_ros_diff_drive.so" name="gazebo_base_controller">
+      <odometry_frame>odom</odometry_frame>
+      <commandTopic>cmd_vel</commandTopic>
+      <publish_odom>true</publish_odom>
+      <publish_odom_tf>true</publish_odom_tf>
+      <update_rate>15.0</update_rate>
+      <left_joint>wheel_left_joint</left_joint>
+      <right_joint>wheel_right_joint</right_joint>
+      <wheel_separation>0.5</wheel_separation>
+      <wheel_diameter>0.3</wheel_diameter>
+      <max_wheel_acceleration>0.7</max_wheel_acceleration>
+      <max_wheel_torque>8</max_wheel_torque>
+      <robotBaseFrame></robotBaseFrame>
+    </plugin>
+  </gazebo>
+
+<!-- CAMERAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA -->
+      <gazebo reference="camera">
+    <sensor type="camera" name="camera1">
+      <update_rate>30.0</update_rate>
+      <camera name="head">
+        <horizontal_fov>1.3962634</horizontal_fov>
+        <image>
+          <width>800</width>
+          <height>800</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <cameraName>/camera</cameraName>
+        <imageTopicName>image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <frameName>camera_link</frameName>
+        <hackBaseline>0.07</hackBaseline>
+      </plugin>
+    </sensor>
+    <material>Gazebo/Blue</material>
+  </gazebo>
+
+<!-- LIDAAAAAAAAAAAAAAAAAAAAAAAAAAR -->
+   <gazebo reference="lidar">
+    <sensor name="gazebo_lidar" type="ray">
+     <visualize>true</visualize>
+      <update_rate>12.0</update_rate>
+      <plugin filename="libgazebo_ros_ray_sensor.so" name="gazebo_lidar">
+      <ros>
+        <remapping>~/out:=scan</remapping>
+      </ros>
+
+      <output_type>sensor_msgs/LaserScan</output_type>
+      <frame_name>lidar</frame_name>
+      </plugin>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>360</samples>
+            <resolution>1</resolution>
+            <min_angle>0.00</min_angle>
+            <max_angle>3.14</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.120</min>
+          <max>3.5</max>
+          <resolution>0.015</resolution>
+        </range>
+
+      </ray>
+    </sensor>
+    <material>Gazebo/DarkGrey</material>
+  </gazebo>
+
+
+<!-- imuuuuuuuuuuuuuuuu -->
+
+<gazebo reference="imu_link">
+    <gravity>true</gravity>
+    <sensor name="imu_sensor" type="imu">
+      <always_on>true</always_on>
+      <update_rate>100</update_rate>
+      <visualize>true</visualize>
+      <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
+        <ros>
+            <remapping>~/out:=imu</remapping>
+          </ros>
+        <topicName>imu</topicName>
+        <bodyName>imu_link</bodyName>
+        <updateRateHZ>10.0</updateRateHZ>
+        <xyzOffset>0 0 0</xyzOffset>
+        <rpyOffset>0 0 0</rpyOffset>
+        <frameName>imu_link</frameName>
+        <initialOrientationAsReference>false</initialOrientationAsReference>
+      </plugin>
+      <pose>0 0 0 0 0 0</pose>
+    </sensor>
+  </gazebo>
+</robot>
