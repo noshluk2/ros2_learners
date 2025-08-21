@@ -2,7 +2,7 @@ import torch
 from PIL import Image
 from torchvision.models import resnet18, ResNet18_Weights
 
-img = Image.open("/home/luqman/Libraries_for_robotics/humanoid_robot.jpeg").convert("RGB")
+img = Image.open("humanoid_robot.jpeg").convert("RGB")
 
 weights = ResNet18_Weights.DEFAULT
 
